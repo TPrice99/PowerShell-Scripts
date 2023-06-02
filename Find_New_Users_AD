@@ -1,0 +1,10 @@
+#Purpose: Find newly created users in AD and grab some attributes
+
+#This sets sets date range between today and 7 days ago
+$CreationDate = ((Get-Date).AddDays(-7)).Date
+
+#Set this variable to the OU of the users you want to find
+$ou = 'OU=Standard Accounts, OU=Users and Groups'
+
+#Grabs the AD information and exports it to a csv (Change atrributes to AD attribute name)
+Get-ADUser -Filter {whenCreated -ge $CreationDate} -Properties ATTRIBUTES | Select-Object ATTRIBUTES | Export-Csv FILEPATH\test.csv
