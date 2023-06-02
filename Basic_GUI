@@ -1,0 +1,50 @@
+#Import Modules
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+#Creates the form
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "Input Dialog"
+$form.Size = '600, 300'
+$form.FormBorderStyle = "FixedDialog"
+$form.StartPosition = "CenterScreen"
+
+#Creates text
+$label = New-Object System.Windows.Forms.Label
+$label.Location = '10, 20'
+$label.Size = '280, 20'
+$label.Text = "Enter some text:"
+$form.Controls.Add($label)
+
+#Creates input field
+$textBox = New-Object System.Windows.Forms.TextBox
+$textBox.Location = '10, 40'
+$textBox.Size = '260, 20'
+$form.Controls.Add($textBox)
+
+#OK button
+$button = New-Object System.Windows.Forms.Button
+$button.Location = '250, 200'
+$button.Size = '120, 30'
+$button.Text = "OK"
+$button.DialogResult = [System.Windows.Forms.DialogResult]::OK
+$form.AcceptButton = $button
+$form.Controls.Add($button)
+
+$form.TopMost = $true
+
+$result = $form.ShowDialog()
+
+if ($result -eq [System.Windows.Forms.DialogResult]::OK)
+{
+    #Perform some code
+}
+
+# $scriptPath = (Join-Path -Path $PSScriptRoot -ChildPath "C:\Users\tepri\OneDrive\Desktop\Powershell\main.ps1")
+
+# # Launch an elevated PowerShell window with hidden window style and pass the variables as arguments
+# Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -Command `& '$scriptPath' -Param1 '$text'" -Verb RunAs
+
+# $successMessage = "Operation completed successfully!"
+# $successDialog = New-Object -TypeName System.Management.Automation.Host.ChoiceDescription -ArgumentList "&OK"
+# $null = $host.ui.PromptForChoice("Success", $successMessage, [System.Management.Automation.Host.ChoiceDescription[]]$successDialog, 0)
