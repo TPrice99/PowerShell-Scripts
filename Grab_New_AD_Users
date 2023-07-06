@@ -1,0 +1,13 @@
+# This script will pull all newly created users in a specific date range and return certain fields of each user
+
+$Current_Date = Get-Date
+
+#Set the data range to pull users from
+$DateRange = ((Get-Date).AddDays(-7))
+$CreationDate = $DateRange.Date
+
+#OU for users
+$ou = 'OU=Standard Accounts, DC=company'
+
+#Get information about the users created in the date range and export into a csv
+Get-ADUser -Filter {whenCreated -ge $CreationDate} -Properties name, mail -SearchBase $ou | Select-Object name, mail | Export-Csv filepath/RecentlyCreatedUsers.csv -NoTypeInformation
