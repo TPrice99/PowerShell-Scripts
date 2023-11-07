@@ -1,0 +1,15 @@
+# Description: This script will create a new team in MS Teams. Input required: TeamName, Description, Number of owners + owner upn
+
+Connect-MicrosoftTeams
+
+$TeamName = Read-Host "Enter team name: "
+$Description = Read-Host "Enter description: "
+$team = New-Team -DisplayName $TeamName -Description $Description -Visibility "private"
+
+[int]$NumOwners = 0
+$NumOwners = Read-Host "How many owners? "
+
+for ($i=0; $i -lt $NumOwners; $i++) {
+$owner = Read-Host "Enter Owner upn: "
+Add-TeamUser -GroupId $team.GroupId -User $owner -Role Owner
+}
